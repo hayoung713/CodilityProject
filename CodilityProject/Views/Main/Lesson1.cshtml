@@ -11,7 +11,102 @@
     <title>Lesson1</title>
 </head>
 <body>
-    <div> 
+    <div>
+        <h1>Lesson1</h1>
+        <!-- 문제 1 -->
+        <div style="padding-left:3em;">
+            <h2>Task 1</h2>
+            A binary gap within a positive integer N is any maximal sequence of consecutive zeros that is surrounded by ones at both ends in the binary representation of N.<br /><br />
+
+            For example, number 9 has binary representation 1001 and contains a binary gap of length 2. The number 529 has binary representation 1000010001 and contains two binary gaps: one of length 4 and one of length 3. The number 20 has binary representation 10100 and contains one binary gap of length 1. The number 15 has binary representation 1111 and has no binary gaps.<br /><br />
+
+            <h4>Write a function:</h4>
+
+            <span style="color:forestgreen">class Solution { public int solution(int N); }</span><br /><br />
+
+            that, given a positive integer N, returns the length of its longest binary gap. The function should return 0 if N doesn't contain a binary gap.<br /><br />
+
+            For example, given N = 1041 the function should return 5, because N has binary representation 10000010001 and so its longest binary gap is of length 5.<br /><br />
+
+            <h4>Assume that:</h4>
+            <ul>
+                <li>N is an integer within the range [1..2,147,483,647].</li>
+            </ul>
+
+            <h4>Complexity:</h4>
+            <ul>
+                <li>expected worst-case time complexity is O(log(N));</li>
+                <li>expected worst-case space complexity is O(1).</li>
+            </ul>
+
+            <span style="font-size:0.9em;">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+        </div>
+        <br />
+        <!-- 문제 1 해설 -->
+        <div style="padding-left:3em;">
+            <h3>문제 1 해석</h3>
+            Integer 숫자를 입력받아, 2진수로 변환한다.<br />
+            변환한 2진수의 1과 1 사이의 0의 최대 수를 반환하는 함수를 만들어라<br />
+            예1) 10진수 529 -> 2진수 1000010001 -> 1과 1 사이의 최대 0의 개수 : 4<br />
+            예2) 10진수 20 -> 2진수 10100 -> 1과 1 사이의 최대 0의 개수 : 1<br />
+            예3) 10진수 15 -> 2진수 1111 -> 1과 1 사이의 최대 0의 개수 : 0<br />
+        </div>
+        <br />
+        <!-- 문제 1 실습 -->
+        <div style="padding-left:3em;">
+            <h3>문제 1 실습</h3>
+            <input type="text" id="number" /> <button>결과</button><br/>
+            입력받은 숫자: <span id="inputNumber"></span><br />
+            2진수: <span id="binaryNumber"></span><br />
+            최대 0의 수: <span id="binaryGap"></span><br />
+        </div>
+        <br />
+        <!-- 문제 1 풀이 -->
+        <div style="padding-left:3em;">
+            <h3>문제 1 풀이</h3>
+            <xmp>                
+    using System;
+    // you can also use other imports, for example:
+    // using System.Collections.Generic;
+    using System.Linq;
+
+    // you can write to stdout for debugging purposes, e.g.
+    // Console.WriteLine("this is a debug message");
+
+    class Solution {
+        public int solution(int N) {        
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int longestBinaryGap = 0;
+        
+            if(N > 0 && N <= 2147483647) {
+                // N을 2진수 문자열로 변환
+                string repStr = Convert.ToString(N, 2);
+                string[] repArr = repStr.Select(r => r.ToString()).ToArray();
+            
+                int tempLongestBinary = 0;
+            
+                // 1에 해당하는 자리수를 gap array 에 저장
+                for(int i=0; i<repArr.Length; i++) {
+                    if(repArr[i].Equals("1")) {
+                    
+                        // 첫 1이 아니며, 이전 1과 연속되지 않으며, 
+                        if (tempLongestBinary != 0 && tempLongestBinary != i && (i - tempLongestBinary) > longestBinaryGap) {
+                            // 이전 1과 현재 i 와의 갭이 가장 큰 갭이 된다.
+                            longestBinaryGap = i - tempLongestBinary;
+                        }
+    
+                        tempLongestBinary = i + 1;
+                    }
+                }
+            }
+        
+            return longestBinaryGap;        
+        }
+    }
+            </xmp>
+
+        </div>
+        <br />
     </div>
 </body>
 </html>
