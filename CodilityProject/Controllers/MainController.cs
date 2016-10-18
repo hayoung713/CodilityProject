@@ -16,8 +16,8 @@ namespace CodilityProject.Controllers
         }
 
 
-        [Route("Lesson1")]
-        public ActionResult Lesson1()
+        [Route("Lessons1")]
+        public ActionResult Lessons1()
         {
             return View();
         }
