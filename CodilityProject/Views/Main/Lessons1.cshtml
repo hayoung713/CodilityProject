@@ -3,6 +3,34 @@
     Layout = "~/Views/Layout.cshtml";
 }
 
+<script>
+    function resultLessons1() {
+
+        var number = parseInt($("#number").val(), 10);
+
+        if (isNaN(number)) {
+            alert("숫자로 입력해 주세요.");
+            return;
+        } else if (number < 0 || number > 2147483647) {
+            alert("Int 형 범위로 입력해 주세요. (0 ~ 2147483647)");
+            return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/api/L1T1",
+            data: { number : number },
+            dataType: "json",
+            success: function (result) {
+                $("#inputNumber").text(result.inputNumber);
+                $("#binaryNumber").text(result.binaryNumber);
+                $("#binaryGap").text(result.binaryGap);
+            }
+
+        });
+    }
+</script>
+
 <div>
     <h1>Lesson1</h1>
     <!-- 문제 1 -->
@@ -47,7 +75,7 @@
     <!-- 문제 1 실습 -->
     <div class="divLeft3">
         <h3>문제 1 실습</h3>
-        <input type="text" id="number" /> <button>결과</button><br />
+        <input type="text" id="number" /> <button onclick="resultLessons1()">결과</button><br />
         입력받은 숫자: <span id="inputNumber"></span><br />
         2진수: <span id="binaryNumber"></span><br />
         최대 0의 수: <span id="binaryGap"></span><br />
