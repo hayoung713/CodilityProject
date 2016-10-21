@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace CodilityProject.Controllers
 {
@@ -15,9 +11,14 @@ namespace CodilityProject.Controllers
             return View();
         }
 
-
         [Route("Lessons1")]
         public ActionResult Lessons1()
+        {
+            return View();
+        }
+
+        [Route("Lessons2")]
+        public ActionResult Lessons2()
         {
             return View();
         }

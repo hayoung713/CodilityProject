@@ -1,5 +1,6 @@
 ﻿
 @{
+    ViewBag.Title = "Lessons2";
     Layout = "~/Views/Layout.cshtml";
 }
 
@@ -35,7 +36,7 @@
     <h1>Lesson1</h1>
     <!-- 문제 1 -->
     <div class="divLeft3">
-        <h2>Task 1</h2>
+        <h2>Task 1 > BinaryGap</h2>
         A binary gap within a positive integer N is any maximal sequence of consecutive zeros that is surrounded by ones at both ends in the binary representation of N.<br /><br />
 
         For example, number 9 has binary representation 1001 and contains a binary gap of length 2. The number 529 has binary representation 1000010001 and contains two binary gaps: one of length 4 and one of length 3. The number 20 has binary representation 10100 and contains one binary gap of length 1. The number 15 has binary representation 1111 and has no binary gaps.<br /><br />
@@ -84,43 +85,24 @@
     <!-- 문제 1 풀이 -->
     <div class="divLeft3">
         <h3>문제 1 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/trainingN2VC9N-F6A/" target="_blank">https://codility.com/demo/results/trainingN2VC9N-F6A/</a>
         <xmp>                
     using System;
-    // you can also use other imports, for example:
-    // using System.Collections.Generic;
-    using System.Linq;
-
-    // you can write to stdout for debugging purposes, e.g.
-    // Console.WriteLine("this is a debug message");
 
     class Solution {
-        public int solution(int N) {        
+        public int solution(int N) {
             // write your code in C# 6.0 with .NET 4.5 (Mono)
             int longestBinaryGap = 0;
-        
-            if(N > 0 && N <= 2147483647) {
-                // N을 2진수 문자열로 변환
-                string repStr = Convert.ToString(N, 2);
-                string[] repArr = repStr.Select(r => r.ToString()).ToArray();
-            
-                int tempLongestBinary = 0;
-            
-                // 1에 해당하는 자리수를 gap array 에 저장
-                for(int i=0; i<repArr.Length; i++) {
-                    if(repArr[i].Equals("1")) {
-                    
-                        // 첫 1이 아니며, 이전 1과 연속되지 않으며, 
-                        if (tempLongestBinary != 0 && tempLongestBinary != i && (i - tempLongestBinary) > longestBinaryGap) {
-                            // 이전 1과 현재 i 와의 갭이 가장 큰 갭이 된다.
-                            longestBinaryGap = i - tempLongestBinary;
-                        }
-    
-                        tempLongestBinary = i + 1;
-                    }
-                }
+            string repStr = Convert.ToString(N, 2);
+            string[] repArr = repStr.Split('1');
+
+            for (int i = 0; i < repArr.Length - 1; i++)
+            {
+                if (repArr[i].Length > longestBinaryGap)
+                    longestBinaryGap = repArr[i].Length;
             }
-        
-            return longestBinaryGap;        
+
+            return longestBinaryGap;
         }
     }
         </xmp>

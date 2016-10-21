@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Lessons2";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<script>
+    function resultLessons2(tNum) {
+        $.ajax({
+            type: "post",
+            url: "/api/L2T" + tNum,
+            dataType: "json",
+            success: function (result) {
+                if (tNum == 1) {
+                    $("#oddInteger").text(result.oddInteger);
+                } else {
+                    $("#shiftArr").text("[" + result.shiftArr + "]");
+                }
+            }
+        });
+    }
+</script>
+
+<div>
+    <h1>Lesson2</h1>
+
+    <!-- 문제 1 -->
+    <div class="divLeft3">
+        <h2>Task 1 > OddOccurrencesInArray</h2>
+        A non-empty zero-indexed array A consisting of N integers is given.<br /><br />
+
+        The array contains an odd number of elements, and each element of the array can be paired with another element that has the same value, except for one element that is left unpaired.<br /><br />
+
+        <h4>For example, in array A such that:</h4>
+        A[0] = 9  A[1] = 3  A[2] = 9<br />
+        A[3] = 3  A[4] = 9  A[5] = 7<br />
+        A[6] = 9<br />
+
+        <ul>
+            <li>the elements at indexes 0 and 2 have value 9,</li>
+            <li>the elements at indexes 1 and 3 have value 3,</li>
+            <li>the elements at indexes 4 and 6 have value 9,</li>
+            <li>the element at index 5 has value 7 and is unpaired.</li>
+        </ul>
+
+        <h4>Write a function:</h4>
+
+        <span class="spanColorGreen">class Solution { public int solution(int[] A); }</span><br /><br />
+
+        that, given an array A consisting of N integers fulfilling the above conditions, returns the value of the unpaired element.<br /><br />
+
+        <h4>For example, in array A such that:</h4>
+        A[0] = 9  A[1] = 3  A[2] = 9<br />
+        A[3] = 3  A[4] = 9  A[5] = 7<br />
+        A[6] = 9<br />
+        the function should return 7, as explained in the example above.
+
+        <h4>Assume that:</h4>
+        <ul>
+            <li>N is an odd integer within the range [1..1,000,000];</li>
+            <li>each element of array A is an integer within the range [1..1,000,000,000];</li>
+            <li>all but one of the values in A occur an even number of times.</li>
+        </ul>
+
+        <h4>Complexity:</h4>
+        <ul>
+            <li>expected worst-case time complexity is O(N);</li>
+            <li>worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).</li>
+        </ul>
+        Elements of input arrays can be modified.
+        <span class="spanFooter">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+    </div>
+    <br />
+    <!-- 문제 1 해설 -->
+    <div class="divLeft3">
+        <h3>문제 1 해석</h3>
+        Integer 홀수 배열에는 숫자가 짝수개 존재하는데 이 중 하나의 수만 홀수개이다.<br />
+        홀수개의 수를 반환하는 함수를 만들어라<br />
+        예1) [9, 3, 9, 3, 9, 7, 9] : 7<br />
+    </div>
+    <br />
+    <!-- 문제 1 실습 -->
+    <div class="divLeft3">
+        <h3>문제 1 실습</h3>
+        [5, 1, 5, 8, 1] <button onclick="resultLessons2(1)">결과</button><br />
+        결과: <span id="oddInteger"></span><br />
+    </div>
+    <br />
+    <!-- 문제 1 풀이 -->
+    <div class="divLeft3">
+        <h3>문제 1 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/trainingP69H6H-M9W/" target="_blank">https://codility.com/demo/results/trainingP69H6H-M9W/</a>
+        <xmp>                
+    using System;
+            
+    class Solution {
+        public int solution(int[] A) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int result = 0;
+        
+            Array.Sort(A);
+        
+            for(int i=0; i<A.Length; i = i + 2) {
+                if(i == A.Length - 1 || A[i] != A[i+1]){
+                    result = A[i];
+                    break;
+                }
+            }
+        
+            return result;
+        }
+    }
+        </xmp>
+
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    
+    <!-- 문제 2 -->
+    <div class="divLeft3">
+        <h2>Task 2 > CyclicRotation</h2>
+        A zero-indexed array A consisting of N integers is given. Rotation of the array means that each element is shifted right by one index, and the last element of the array is also moved to the first place.<br /><br />
+
+        For example, the rotation of array A = [3, 8, 9, 7, 6] is [6, 3, 8, 9, 7]. The goal is to rotate array A K times; that is, each element of A will be shifted to the right by K indexes.<br /><br />
+
+        <h4>Write a function:</h4>
+
+        <span class="spanColorGreen">class Solution { public int[] solution(int[] A, int K); }</span><br /><br />
+
+        that, given a zero-indexed array A consisting of N integers and an integer K, returns the array A rotated K times.].<br /><br />
+
+        For example, given array A = [3, 8, 9, 7, 6] and K = 3, the function should return [9, 7, 6, 3, 8].<br /><br />
+
+        <h4>Assume that:</h4>
+        <ul>
+            <li>N and K are integers within the range [0..100];</li>
+            <li>each element of array A is an integer within the range [−1,000..1,000].</li>
+        </ul>
+
+        In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.<br /><br />
+
+        <span class="spanFooter">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+    </div>
+    <br />
+    <!-- 문제 2 해설 -->
+    <div class="divLeft3">
+        <h3>문제 2 해석</h3>
+        Integer 배열과 오른쪽으로 이동할 횟수를 입력 받는다.<br />
+        Integer 배열을 입력한 횟수만큼 오른쪽으로 이동한 배열을 반환한다.<br />
+        예1) A = [3, 8, 9, 7, 6], K = 3 : [9, 7, 6, 3, 8]<br />
+    </div>
+    <br />
+    <!-- 문제 2 실습 -->
+    <div class="divLeft3">
+        <h3>문제 2 실습</h3>
+        A = [3, 5], K = 3 <button onclick="resultLessons2(2)">결과</button><br />
+        결과: <span id="shiftArr"></span><br />
+    </div>
+    <br />
+    <!-- 문제 2 풀이 -->
+    <div class="divLeft3">
+        <h3>문제 2 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/trainingA5P6UD-CDY/" target="_blank">https://codility.com/demo/results/trainingA5P6UD-CDY/</a>
+        <xmp>                
+    using System;
+
+    class Solution {
+        public int[] solution(int[] A, int K) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int aLength = A.Length;
+            
+            if(aLength > 1 && K > 0 && K % aLength > 0) {
+                int[] shiftArr = new int[aLength];
+                int shiftNum = aLength <= K ? K % aLength : K;
+            
+                for(int i=0; i<aLength; i++)
+                    shiftArr[i] = (i < shiftNum ? A[aLength - shiftNum + i] : A[i - shiftNum]);
+                
+                return shiftArr;
+                
+            } else {
+                return A;
+            }
+        }
+    }
+        </xmp>
+
+    </div>
+    <br />
+</div>
