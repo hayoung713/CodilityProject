@@ -82,7 +82,7 @@ namespace CodilityProject.Controllers
 
             if (aLength > 1 && K > 0 && K % aLength > 0)
             {
-                int shiftNum = aLength <= K ? K % aLength : K;
+                int shiftNum = K % aLength;
 
                 for (int i = 0; i < aLength; i++)
                     shiftArr[i] = (i < shiftNum ? A[aLength - shiftNum + i] : A[i - shiftNum]);

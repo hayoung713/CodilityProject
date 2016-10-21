@@ -163,7 +163,7 @@
     <!-- 문제 2 풀이 -->
     <div class="divLeft3">
         <h3>문제 2 풀이</h3>
-        풀이: <a href="https://codility.com/demo/results/trainingA5P6UD-CDY/" target="_blank">https://codility.com/demo/results/trainingA5P6UD-CDY/</a>
+        풀이: <a href="https://codility.com/demo/results/trainingUA7W5S-JA4/" target="_blank">https://codility.com/demo/results/trainingUA7W5S-JA4/</a>
         <xmp>                
     using System;
 
@@ -174,7 +174,7 @@
             
             if(aLength > 1 && K > 0 && K % aLength > 0) {
                 int[] shiftArr = new int[aLength];
-                int shiftNum = aLength <= K ? K % aLength : K;
+                int shiftNum = K % aLength;
             
                 for(int i=0; i<aLength; i++)
                     shiftArr[i] = (i < shiftNum ? A[aLength - shiftNum + i] : A[i - shiftNum]);
