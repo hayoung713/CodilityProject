@@ -1,0 +1,304 @@
+﻿
+@{
+    ViewBag.Title = "Lessons4";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<script>
+    function resultLessons4(tNum) {
+        $.ajax({
+            type: "post",
+            url: "/api/L4T" + tNum,
+            dataType: "json",
+            success: function (result) {
+                if (tNum == 1) {
+                    $("#resultNum").text(result.resultNum);
+                } else if(tNum == 2) {
+                    $("#frogJumpCnt").text(result.frogJumpCnt);
+                } else {
+                    $("#missingNumber").text(result.missingNumber);
+                }
+            }
+        });
+    }
+</script>
+
+<div>
+    <h1>Lesson4</h1>
+
+    <!-- 문제 1 -->
+    <div class="divLeft3">
+        <h2>Task 1 > TapeEquilibrium</h2>
+        A non-empty zero-indexed array A consisting of N integers is given. Array A represents numbers on a tape.<br /><br />
+
+        Any integer P, such that 0 < P < N, splits this tape into two non-empty parts: A[0], A[1], ..., A[P − 1] and A[P], A[P + 1], ..., A[N − 1].<br /><br />
+
+        The difference between the two parts is the value of: |(A[0] + A[1] + ... + A[P − 1]) − (A[P] + A[P + 1] + ... + A[N − 1])|<br /><br />
+
+        In other words, it is the absolute difference between the sum of the first part and the sum of the second part.<br /><br />
+
+        <h4>For example, in array A such that:</h4>
+
+        A[0] = 3<br />
+        A[1] = 1<br />
+        A[2] = 2<br />
+        A[3] = 4<br />
+        A[4] = 3<br />
+
+        <h4>We can split this tape in four places:</h4>
+
+        <ul>
+            <li>P = 1, difference = |3 − 10| = 7</li>
+            <li>P = 2, difference = |4 − 9| = 5</li>
+            <li>P = 3, difference = |6 − 7| = 1</li>
+            <li>P = 4, difference = |10 − 3| = 7</li>
+        </ul>
+
+        <h4>Write a function:</h4>
+
+        <span class="spanColorGreen">class Solution { public int solution(int[] A); }</span><br /><br />
+
+        that, given a non-empty zero-indexed array A of N integers, returns the minimal difference that can be achieved.<br /><br />
+
+        <h4>For example, given:</h4>
+        A[0] = 3<br />
+        A[1] = 1<br />
+        A[2] = 2<br />
+        A[3] = 4<br />
+        A[4] = 3<br />
+        the function should return 1, as explained above.
+
+        <h4>Assume that:</h4>
+        <ul>
+            <li>N is an integer within the range [2..100,000];</li>
+            <li>each element of array A is an integer within the range [−1,000..1,000].</li>
+        </ul>
+
+        <h4>Complexity:</h4>
+        <ul>
+            <li>expected worst-case time complexity is O(N);</li>
+            <li>expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).</li>
+        </ul>
+        Elements of input arrays can be modified.
+        <span class="spanFooter">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+    </div>
+    <br />
+    <!-- 문제 1 해설 -->
+    <div class="divLeft3">
+        <h3>문제 1 해석</h3>
+        Integer 배열을 받아 |(A[0] + A[1] + ... + A[P − 1]) − (A[P] + A[P + 1] + ... + A[N − 1])| 의 값 중 가장 작은 수를 반환한다.<br />
+        예1) [3, 1, 2, 4, 3] : |3-10| = 7, |4-9| = 5, |6-7| = 1, |10-3| = 7 -> 1 반환<br />
+    </div>
+    <br />
+    <!-- 문제 1 실습 -->
+    <div class="divLeft3">
+        <h3>문제 1 실습</h3>
+        [3, 1, 2, 4, 3] <button onclick="resultLessons4(1)">결과</button><br />
+        결과: <span id="resultNum"></span><br />
+    </div>
+    <br />
+    <!-- 문제 1 풀이 -->
+    <div class="divLeft3">
+        <h3>문제 1 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/trainingB3HVNP-FNV/" target="_blank">https://codility.com/demo/results/trainingB3HVNP-FNV/</a>
+        <xmp>
+            using System;
+
+            class Solution {
+            public int solution(int[] A) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int resultNum = Int32.MaxValue;
+
+            if(A.Length > 1) {
+            int leftSum = A[0];
+            int rightSum = 0;
+
+            for(int i=1; i<A.Length; i++) {
+                                     rightSum +=A[i];
+                                     }
+                                     resultNum=Math.Abs(leftSum - rightSum);
+                                     for(int i=1; i<A.Length-1; i++) {
+                    leftSum += A[i];
+                    rightSum -= A[i];
+
+                    resultNum = resultNum > Math.Abs(leftSum - rightSum) ? Math.Abs(leftSum - rightSum) : resultNum;
+                }
+            }
+
+            return resultNum;
+        }
+    }
+        </xmp>
+
+    </div>
+
+
+    <br />
+    <hr />
+    <br />
+
+
+    <!-- 문제 2 -->
+    <div class="divLeft3">
+        <h2>Task 2 > FrogJmp</h2>
+        A small frog wants to get to the other side of the road. The frog is currently located at position X and wants to get to a position greater than or equal to Y. The small frog always jumps a fixed distance, D.<br /><br />
+
+        Count the minimal number of jumps that the small frog must perform to reach its target.<br /><br />
+
+        <h4>Write a function:</h4>
+
+        <span class="spanColorGreen">class Solution { public int solution(int X, int Y, int D); }</span><br /><br />
+
+        that, given three integers X, Y and D, returns the minimal number of jumps from position X to a position equal to or greater than Y.<br /><br />
+
+        <h4>For example, given:</h4>
+        X = 10<br />
+        Y = 85<br />
+        D = 30<br />
+
+        <h4>the function should return 3, because the frog will be positioned as follows:</h4>
+        <ul>
+            <li>after the first jump, at position 10 + 30 = 40</li>
+            <li>after the second jump, at position 10 + 30 + 30 = 70</li>
+            <li>after the third jump, at position 10 + 30 + 30 + 30 = 100</li>
+        </ul>
+
+        <h4>Assume that:</h4>
+        <ul>
+            <li>X, Y and D are integers within the range [1..1,000,000,000];</li>
+            <li>X ≤ Y.</li>
+        </ul>
+
+        <h4>Complexity:</h4>
+        <ul>
+            <li>expected worst-case time complexity is O(1);</li>
+            <li>expected worst-case space complexity is O(1).</li>
+        </ul>
+
+        <span class="spanFooter">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+    </div>
+    <br />
+    <!-- 문제 2 해설 -->
+    <div class="divLeft3">
+        <h3>문제 2 해석</h3>
+        시작위치 X, 도착위치 Y, 이동거리 D 를 입력받아, X에서 Y로 이동하기까지 D만큼 몇번 이동해야 도착하는지 구하여라<br />
+        예1) X = 10, Y = 85, D = 30 : 3<br />
+    </div>
+    <br />
+    <!-- 문제 2 실습 -->
+    <div class="divLeft3">
+        <h3>문제 2 실습</h3>
+        X = 10, Y = 85, D = 30 <button onclick="resultLessons4(2)">결과</button><br />
+        결과: <span id="frogJumpCnt"></span><br />
+    </div>
+    <br />
+    <!-- 문제 2 풀이 -->
+    <div class="divLeft3">
+        <h3>문제 2 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/training3VFFQ8-6KV/" target="_blank">https://codility.com/demo/results/training3VFFQ8-6KV/</a>
+        <xmp>
+            using System;
+
+            class Solution {
+            public int solution(int X, int Y, int D) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            return (int)Math.Ceiling((double)(Y-X)/D);
+            }
+            }
+        </xmp>
+
+    </div>
+
+
+    <br />
+    <hr />
+    <br />
+
+
+    <!-- 문제 3 -->
+    <div class="divLeft3">
+        <h2>Task 3 > PermMissingElem</h2>
+        A zero-indexed array A consisting of N different integers is given. The array contains integers in the range [1..(N + 1)], which means that exactly one element is missing.<br /><br />
+
+        Your goal is to find that missing element.<br /><br />
+
+        <h4>Write a function:</h4>
+
+        <span class="spanColorGreen">class Solution { public int solution(int[] A); }</span><br /><br />
+
+        that, given three integers X, Y and D, returns the minimal number of jumps from position X to a position equal to or greater than Y.<br /><br />
+
+        <h4>For example, given array A such that:</h4>
+        A[0] = 2<br />
+        A[1] = 3<br />
+        A[2] = 1<br />
+        A[3] = 5<br />
+        the function should return 4, as it is the missing element.<br />
+
+        <h4>Assume that:</h4>
+        <ul>
+            <li>N is an integer within the range [0..100,000];</li>
+            <li>the elements of A are all distinct;</li>
+            <li>each element of array A is an integer within the range [1..(N + 1)].</li>
+        </ul>
+
+        <h4>Complexity:</h4>
+        <ul>
+            <li>expected worst-case time complexity is O(N);</li>
+            <li>expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).</li>
+        </ul>
+        Elements of input arrays can be modified.
+
+        <span class="spanFooter">Copyright 2009–2016 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.</span>
+    </div>
+    <br />
+    <!-- 문제 3 해설 -->
+    <div class="divLeft3">
+        <h3>문제 3 해석</h3>
+        입력받은 배열의 길이가 N 이라면, 배열의 값은 1 ... (N+1)이다.<br />
+        이 중 누락된 요소의 값을 찾아 반환하라.<br />
+        예1) A = [2, 3, 1, 5] : 4<br />
+    </div>
+    <br />
+    <!-- 문제 3 실습 -->
+    <div class="divLeft3">
+        <h3>문제 3 실습</h3>
+        A = [2, 3, 1, 5] <button onclick="resultLessons4(3)">결과</button><br />
+        결과: <span id="missingNumber"></span><br />
+    </div>
+    <br />
+    <!-- 문제 3 풀이 -->
+    <div class="divLeft3">
+        <h3>문제 3 풀이</h3>
+        풀이: <a href="https://codility.com/demo/results/trainingXV4GHC-QZ7/" target="_blank">https://codility.com/demo/results/trainingXV4GHC-QZ7/</a>
+        <xmp>
+            using System;
+
+            class Solution {
+            public int solution(int[] A) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int missingNumber = 1;
+
+            if(A.Length > 0) {
+            Array.Sort(A);
+
+            if(A[0] != 1)
+            return missingNumber;
+            if(A[A.Length -1] != A.Length + 1)
+            return A.Length + 1;
+
+            for(int i=0; i<A.Length; i++) {
+                                     if(A[i]+2= =A[i+1]) {
+                                     missingNumber=A[i] + 1;
+                                     break;
+                                     }
+                                     }
+                                     }
+                                     return missingNumber;
+                                     }
+                                     }
+        </xmp>
+
+    </div>
+    <br />
+</div>

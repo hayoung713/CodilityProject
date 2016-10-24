@@ -76,7 +76,7 @@ namespace CodilityProject.Controllers
         {
             int[] A = { 3, 5 };
             int K = 3;
-            
+
             int aLength = A.Length;
             int[] shiftArr = new int[aLength];
 
@@ -94,6 +94,78 @@ namespace CodilityProject.Controllers
             }
 
             return Json(new { shiftArr = shiftArr });
+        }
+
+
+        [Route("L3T1"), HttpPost]
+        public JsonResult L3T1()
+        {
+            int[] A = { 3, 1, 2, 4, 3 };
+            int resultNum = Int32.MaxValue;
+
+            if (A.Length > 1)
+            {
+                int leftSum = A[0];
+                int rightSum = 0;
+
+                for (int i = 1; i < A.Length; i++)
+                {
+                    rightSum += A[i];
+                }
+                resultNum = Math.Abs(leftSum - rightSum);
+
+                for (int i = 1; i < A.Length - 1; i++)
+                {
+                    leftSum += A[i];
+                    rightSum -= A[i];
+
+                    resultNum = resultNum > Math.Abs(leftSum - rightSum) ? Math.Abs(leftSum - rightSum) : resultNum;
+                }
+            }
+
+            return Json(new { resultNum = resultNum });
+        }
+
+
+        [Route("L3T2"), HttpPost]
+        public JsonResult L3T2()
+        {
+            int X = 10;
+            int Y = 85;
+            int D = 30;
+
+            return Json(new { frogJumpCnt = (int)Math.Ceiling((double)(Y - X) / D) });
+        }
+
+
+        [Route("L3T3"), HttpPost]
+        public JsonResult L3T3()
+        {
+            int[] A = { 2, 3, 1, 5 };
+            int missingNumber = 1;
+
+            if (A.Length > 0)
+            {
+                Array.Sort(A);
+
+                if (A[A.Length - 1] != A.Length + 1)
+                {
+                    missingNumber = A.Length + 1;
+                }
+                else if (A[0] == 1)
+                {
+                    for (int i = 0; i < A.Length; i++)
+                    {
+                        if (A[i] + 2 == A[i + 1])
+                        {
+                            missingNumber = A[i] + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return Json(new { missingNumber = missingNumber });
         }
     }
 }

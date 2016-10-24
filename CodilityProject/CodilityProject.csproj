@@ -145,6 +145,8 @@
     <Content Include="Views\Main\Lessons1.cshtml" />
     <Content Include="Views\Layout.cshtml" />
     <Content Include="Views\Main\Lessons2.cshtml" />
+    <Content Include="Views\Main\Lessons3.cshtml" />
+    <Content Include="Views\Main\Lessons4.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

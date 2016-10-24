@@ -22,5 +22,17 @@ namespace CodilityProject.Controllers
         {
             return View();
         }
+
+        [Route("Lessons3")]
+        public ActionResult Lessons3()
+        {
+            return View();
+        }
+
+        [Route("Lessons4")]
+        public ActionResult Lessons4()
+        {
+            return View();
+        }
     }
 }
